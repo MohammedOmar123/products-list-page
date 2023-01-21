@@ -19,5 +19,4 @@ switch (NODE_ENV) {
   default:
     throw new Error('invalid database config variables');
 }
-console.log(config);
 export default config;
