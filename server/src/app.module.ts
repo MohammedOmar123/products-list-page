@@ -9,7 +9,7 @@ import config from './core/connection';
     ConfigModule.forRoot({ isGlobal: true }),
     SequelizeModule.forRoot({
       ...config,
-      sync: { force: true },
+      sync: { force: false },
       autoLoadModels: true,
       synchronize: true,
       logging: true,
