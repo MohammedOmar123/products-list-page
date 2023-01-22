@@ -8,6 +8,6 @@ export class ProductsController {
 
   @Get()
   findAll(@Query() dto: QueryDto) {
-    return this.productsService.findAll(+dto.offset, dto.category);
+    return this.productsService.findAll(dto);
   }
 }
