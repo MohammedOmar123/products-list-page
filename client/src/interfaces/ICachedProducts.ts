@@ -1,4 +1,5 @@
-import { IProduct } from "./IProducts";
+import { IProduct } from './IProducts';
+
 export interface ICachedProducts {
   categories: string[];
   products: IProduct[];

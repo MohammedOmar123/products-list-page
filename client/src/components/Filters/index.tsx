@@ -1,89 +1,85 @@
 import { FC, useContext } from 'react';
-import { Checkbox, Divider, Select } from 'antd';
-import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 
+import { Checkbox, Select } from 'antd';
+import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { v4 as uuidv4 } from 'uuid';
 
 import { ProductContext } from '../../context/ProductContext';
 import { categories } from '../../data/FakeData';
 import './style.css';
 
 const Filters: FC = () => {
-
-
-  const productContext = useContext(ProductContext);
+  const context = useContext(ProductContext);
   const onChange = (e: CheckboxChangeEvent): void => {
     const { name } = e.target;
     if (e.target.checked && name) {
-      productContext?.setCategories((prev) => [...prev, name])
+      context?.setCategories((prev) => [...prev, name]);
     } else {
-      productContext?.setCategories((prev) => prev.filter((category) => category !== name))
+      context?.setCategories((prev) => prev.filter((category) => category !== name));
     }
-
-  }
-
-  const handleOrderByPrice = (price: string) => {
-    productContext?.setOrderBy((prev) => {
-      return { ...prev, price };
-    });
   };
 
-  const handleOrderByName = (name: string) => {
-    productContext?.setOrderBy((prev) => {
-      return { ...prev, name };
-    });
+  const handleOrderByPrice = (price: string) : void => {
+    context?.setOrderBy((prev) => ({ ...prev, price }));
+  };
+
+  const handleOrderByName = (name: string) : void => {
+    context?.setOrderBy((prev) => ({ ...prev, name }));
   };
 
   return (
     <div className="filters-container">
-      <div style={{ display: "flex", flexDirection: "column", gap: "4px " }}>
-        <h2 className='filters'>Categories</h2>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px ' }}>
+        <h2 className="filters">Categories</h2>
         {
-          categories.map((category, i) => (
-            <div>
+          categories.map((category) => (
+            <div key={uuidv4()}>
               <Checkbox
                 name={category}
-                key={i}
-                onChange={onChange}>
+                onChange={onChange}
+              >
                 {category}
               </Checkbox>
             </div>
-          ))}
+          ))
+}
       </div>
       <div>
-      <h3 className='filters'>Sort by</h3>
-      <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-around"
-      }}>
-        <h4>Price</h4>
-        <Select
-          defaultValue=""
-          style={{ width: 185 }}
-          onChange={handleOrderByPrice}
-          options={[
-            { value: 'ASC', label: 'From Lowest To Highest' },
-            { value: 'DESC', label: 'From Highest To Lowest' },
-            { value: '', label: '' },
+        <h3 className="filters">Sort by</h3>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-around',
+        }}
+        >
+          <h4>Price</h4>
+          <Select
+            defaultValue=""
+            style={{ width: 185 }}
+            onChange={handleOrderByPrice}
+            options={[
+              { value: 'ASC', label: 'From Lowest To Highest' },
+              { value: 'DESC', label: 'From Highest To Lowest' },
+              { value: '', label: '' },
 
-          ]}
-        />
-      </div>
+            ]}
+          />
+        </div>
 
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <h4>Name</h4>
-        <Select
-          defaultValue=""
-          style={{ width: 185 }}
-          onChange={handleOrderByName}
-          options={[
-            { value: 'ASC', label: 'A - Z' },
-            { value: 'DESC', label: 'Z - A' },
-            { value: '', label: '' },
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <h4>Name</h4>
+          <Select
+            defaultValue=""
+            style={{ width: 185 }}
+            onChange={handleOrderByName}
+            options={[
+              { value: 'ASC', label: 'A - Z' },
+              { value: 'DESC', label: 'Z - A' },
+              { value: '', label: '' },
 
-          ]}
-        />
-      </div>
+            ]}
+          />
+        </div>
 
       </div>
     </div>
