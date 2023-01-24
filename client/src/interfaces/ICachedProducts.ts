@@ -1,6 +1,6 @@
 import { IProduct } from "./IProducts";
 export interface ICachedProducts {
-  categories: string;
+  categories: string[];
   products: IProduct[];
   count: number;
   offset:number;

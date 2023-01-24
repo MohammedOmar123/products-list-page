@@ -3,4 +3,5 @@
   border: 1px #d4d4d4 solid;
   width: 90%;
   margin: 30px auto;
+  justify-content: space-between;
 }

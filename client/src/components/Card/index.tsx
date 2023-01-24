@@ -11,22 +11,23 @@ import './style.css';
 const Card:FC<{ product:IProduct }> = ({ product }) => (
   <div className="card">
     <img src={product.image} alt="product" onError={(e) => {e.currentTarget.src = Image}} />
-    <div className="card-body">
-      <div className="row">
-        <h4 className="card-title">{product.category}</h4>
-        <p className="price">{product.price} $</p>
-      </div>
-      <div style={{ display:"flex", flexDirection:"column",alignItems:"center" }}>
-        <p className="description">
-       {product.name}
+    <div
+    //  style={{ border: "1px solid black" }}
+     >
+        <p className='product-name' style={{ textAlign:"center" }}>
+         {product.name}
       </p>
-      <Rate style={{ display: 'block', color: '#08ab0a', fontSize: '16px'}}
+      <div style={{ display:"flex", justifyContent:"space-between",padding:"0 25px" }}>
+          <p>{product.price}$</p>
+          <p>{product.category}</p>
+      </div>
+      <div style={{ display:"flex", justifyContent:"center" }}>
+      <Rate style={{ display: 'block', color: '#3577f0', fontSize: '16px'}}
         disabled
         defaultValue={4}
-      /></div>
+      />
+      </div></div>
     </div>
-      {/* <Button type="primary" style={{ border:"15px solid red" }}>add  to Cart</Button> */}
-  </div>
 );
 
 export default Card;

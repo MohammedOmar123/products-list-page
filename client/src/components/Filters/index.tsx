@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect } from 'react';
+import { FC, useContext } from 'react';
 import { Checkbox, Divider, Select } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 
@@ -16,7 +16,7 @@ const Filters: FC = () => {
     if (e.target.checked && name) {
       productContext?.setCategories((prev) => [...prev, name])
     } else {
-      productContext?.setCategories((prev) => prev.filter((e) => { console.log(e) }))
+      productContext?.setCategories((prev) => prev.filter((category) => category !== name))
     }
 
   }
@@ -36,7 +36,7 @@ const Filters: FC = () => {
   return (
     <div className="filters-container">
       <div style={{ display: "flex", flexDirection: "column", gap: "4px " }}>
-        <h2>Category</h2>
+        <h2 className='filters'>Categories</h2>
         {
           categories.map((category, i) => (
             <div>
@@ -49,9 +49,8 @@ const Filters: FC = () => {
             </div>
           ))}
       </div>
-
-      <Divider />
-      <h3>Sort by</h3>
+      <div>
+      <h3 className='filters'>Sort by</h3>
       <div style={{
         display: "flex",
         alignItems: "center",
@@ -86,7 +85,7 @@ const Filters: FC = () => {
         />
       </div>
 
-
+      </div>
     </div>
   );
 };

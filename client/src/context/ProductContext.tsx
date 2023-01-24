@@ -36,15 +36,18 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
         // check if the requested items exists in the cache
         const data = CacheServices.isItemsStoredInCache(cachedProducts, offset, orderBy, categories);
         if (data && data.products) {
+          console.log("get the data from cache")
           setProducts(data.products);
           setCount(data.totalNumberOfItems);
           setIsLoading(false);
         } else {
          // if there is no data in the cache.
+         console.log("send request")
           sendApiRequest();
         }
       } else {
         // if the requested data doesn't exist in the cache send a new request.
+        console.log("send request")
         sendApiRequest();
       }
     } catch (error: any) {
@@ -69,7 +72,7 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
       const { count, totalPrice, totalNumberOfItems, products } = response.data;
      
       const newProducts = {
-        products, offset, categories: categories.join(","),
+        products, offset, categories: categories,
         ...orderBy, count, totalPrice, totalNumberOfItems,
       };
 

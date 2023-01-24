@@ -1,15 +1,19 @@
 import { FC } from 'react';
 
-import  { Filters }  from '../../components';
+import { Filters } from '../../components';
 import { ProductsContainer } from '../../components/';
+import { ItemsSummary } from '../../components';
 
 import './style.css';
 
- const Products:FC = () => {
+const Products: FC = () => {
   return (
     <div className="products-page">
       <Filters />
-      <ProductsContainer />
+      <div>      
+        <ItemsSummary />
+        <ProductsContainer /></div>
+
     </div>
   );
 };

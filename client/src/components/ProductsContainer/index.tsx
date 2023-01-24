@@ -1,6 +1,6 @@
 import { FC, useContext, useState } from 'react';
 
-import Card from '../Card/';
+import ProductCard from '../Card';
 import Loading from '../Loading';
 import { ProductContext } from '../../context/ProductContext';
 
@@ -22,7 +22,7 @@ const ProductsContainer: FC = () => {
     }
   }
 
-  if (context?.isLoading) return <Loading />;
+  if (context?.isLoading || !context?.products) return <Loading />;
 
   return (
     <div>
@@ -30,7 +30,7 @@ const ProductsContainer: FC = () => {
         {
           context?.products?.length ?
             context?.products?.map((product) => (
-              <Card key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} />
             ))
             : <div style={{ height:"80Vh"}}><p> No data Matched </p></div>
         }
