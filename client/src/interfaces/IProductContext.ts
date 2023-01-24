@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { IData } from './IProducts';
+import { IData, IProduct } from './IProducts';
 
 export interface IContext {
   data:IData |null;
@@ -13,4 +13,7 @@ export interface IContext {
   setOrderBy: Dispatch<SetStateAction<{ price:string, name:string  }>>;
   offset:number;
   setOffset: Dispatch<SetStateAction<number>>;
+  count:number;
+  setCount: Dispatch<SetStateAction<number>>;
+  products:IProduct[] | null;
 }

@@ -4,16 +4,18 @@ import { Product } from './entities';
 import { QueryDto } from './dto/queryDto';
 @Injectable()
 export class ProductsService {
+  number = 0;
   constructor(
     @InjectModel(Product) private productRepository: typeof Product,
   ) {}
 
   async findAll(dto: QueryDto) {
+    this.number += 1;
     const { offset } = dto;
-
+    console.log(dto);
     const where = {};
     if (dto.category) {
-      where['category'] = dto.category;
+      where['category'] = dto.category.split(',');
     }
     let order = [];
 
@@ -39,6 +41,9 @@ export class ProductsService {
       (acc, product) => acc + product.price,
       0,
     );
-    return { totalPrice, count: products.length, products };
+
+    const totalNumberOfItems = await this.productRepository.count({ where });
+
+    return { totalPrice, count: products.length, products, totalNumberOfItems };
   }
 }

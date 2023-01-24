@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC, useContext, useEffect } from 'react';
 import { Checkbox, Divider, Select } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 
@@ -33,7 +33,6 @@ const Filters: FC = () => {
     });
   };
 
-
   return (
     <div className="filters-container">
       <div style={{ display: "flex", flexDirection: "column", gap: "4px " }}>
@@ -66,6 +65,8 @@ const Filters: FC = () => {
           options={[
             { value: 'ASC', label: 'From Lowest To Highest' },
             { value: 'DESC', label: 'From Highest To Lowest' },
+            { value: '', label: '' },
+
           ]}
         />
       </div>
@@ -79,6 +80,8 @@ const Filters: FC = () => {
           options={[
             { value: 'ASC', label: 'A - Z' },
             { value: 'DESC', label: 'Z - A' },
+            { value: '', label: '' },
+
           ]}
         />
       </div>

@@ -1,7 +1,7 @@
 export interface IData {
-  products: IProduct[],
   count: number,
   totalPrice: number,
+  totalNumberOfItems:number,
 }
 
 
