@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable react/jsx-no-constructed-context-values */
 import {
   createContext, ReactNode, useEffect, useState,
 } from 'react';
@@ -11,7 +13,6 @@ import {
 import { CacheServices } from '../utilities/cacheServices';
 
 export const ProductContext = createContext<IContext | null>(null);
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const ProductProvider = ({ children }: { children: ReactNode }) => {
   const [data, setData] = useState<IData | null>(null);
   const [products, setProducts] = useState<IProduct[] | null>(null);
@@ -28,33 +29,29 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
     try {
       const categoriesString = categories.join(',');
       const response = await
-      // eslint-disable-next-line max-len
-      axios.get(`/api/v1/products/?offset=${offset}&category=${categoriesString}&price=${orderBy.price}&name=${orderBy.name}`);
+      axios.get(`/api/v1/products/?offset=${offset}
+      &category=${categoriesString}&price=${orderBy.price}&name=${orderBy.name}`);
       setData(response.data);
       setProducts(response.data.products);
       setIsLoading(false);
-
-      const {
-        // eslint-disable-next-line @typescript-eslint/no-shadow
-        count, totalPrice, totalNumberOfItems, products,
-      } = response.data;
-
       // Add the new returned products to cache
       const newProducts = {
-        products,
         offset,
         categories,
         ...orderBy,
-        count,
-        totalPrice,
-        totalNumberOfItems,
+        ...response.data,
       };
 
       const cachedProducts = CacheServices.getDataFromCache();
 
       CacheServices.saveToCache(newProducts, cachedProducts);
     } catch (error) {
-      console.log(error);
+      setIsLoading(false);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong',
+      });
     }
   };
 
@@ -65,16 +62,16 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
 
       if (cachedProducts) {
         // check if the requested items exists in the cache
-        // eslint-disable-next-line @typescript-eslint/no-shadow
-        const data = CacheServices.isItemsStoredInCache(
+        const storedItems = CacheServices.isItemsStoredInCache(
           cachedProducts,
           offset,
           orderBy,
           categories,
         );
-        if (data && data.products) {
-          setProducts(data.products);
-          setCount(data.totalNumberOfItems);
+
+        if (data && storedItems.products) {
+          setProducts(storedItems.products);
+          setData(data);
           setIsLoading(false);
         } else {
           // if there is no data in the cache.
@@ -95,12 +92,12 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
+    // Start from here
     fetchData();
   }, [categories, orderBy, offset]);
 
   return (
     <ProductContext.Provider
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         data,
         setData,

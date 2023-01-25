@@ -2,7 +2,6 @@ import { FC, useContext } from 'react';
 
 import { Checkbox, Select } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { v4 as uuidv4 } from 'uuid';
 
 import { ProductContext } from '../../context/ProductContext';
 import { categories } from '../../data/FakeData';
@@ -33,12 +32,12 @@ const Filters: FC = () => {
         <h2 className="filters">Categories</h2>
         {
           categories.map((category) => (
-            <div key={uuidv4()}>
+            <div key={category.id}>
               <Checkbox
-                name={category}
+                name={category.name}
                 onChange={onChange}
               >
-                {category}
+                {category.name}
               </Checkbox>
             </div>
           ))

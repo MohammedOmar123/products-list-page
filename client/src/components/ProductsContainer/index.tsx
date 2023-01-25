@@ -1,7 +1,6 @@
 import { FC, useContext, useState } from 'react';
 
 import { Pagination } from 'antd';
-import { v4 as uuidv4 } from 'uuid';
 
 import ProductCard from '../Card';
 import Loading from '../Loading';
@@ -45,7 +44,6 @@ const ProductsContainer: FC = () => {
           onChange={handleChange}
           simple
           current={prevPage}
-          key={uuidv4()}
         />
       </div>
     </div>
