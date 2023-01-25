@@ -11,8 +11,8 @@ const { Sider } = Layout;
 
 const Filters: FC = () => {
   const [collapsed, setCollapsed] = useState(false);
-
   const context = useContext(ProductContext);
+
   const onChange = (e: CheckboxChangeEvent): void => {
     const { name } = e.target;
     if (e.target.checked && name) {
@@ -23,11 +23,11 @@ const Filters: FC = () => {
   };
 
   const handleOrderByPrice = (price: string): void => {
-    context?.setOrderBy((prev) => ({ ...prev, price }));
+    context?.setOrderBy(() => ({ name: '', price }));
   };
 
   const handleOrderByName = (name: string): void => {
-    context?.setOrderBy((prev) => ({ ...prev, name }));
+    context?.setOrderBy(() => ({ price: '', name }));
   };
 
   return (
@@ -69,7 +69,7 @@ const Filters: FC = () => {
             >
               <p>Price</p>
               <Select
-                defaultValue=""
+                value={context?.orderBy.price}
                 style={{ width: '150px' }}
                 onChange={handleOrderByPrice}
                 options={[
@@ -89,7 +89,7 @@ const Filters: FC = () => {
             >
               <p>Name</p>
               <Select
-                defaultValue=""
+                value={context?.orderBy.name}
                 style={{ width: '150px' }}
                 onChange={handleOrderByName}
                 options={[
