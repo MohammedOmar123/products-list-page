@@ -5,7 +5,6 @@ export const products = [];
 export function createRandomProducts(): any {
   return {
     name: faker.commerce.productName(),
-    image: faker.image.fashion(),
     price: +faker.commerce.price(),
     category: faker.commerce.department(),
     createdAt: '2022-01-03T20:18:05.833Z',
@@ -14,6 +13,7 @@ export function createRandomProducts(): any {
 }
 
 createRandomProducts();
-Array.from({ length: 30 }).forEach(() => {
+Array.from({ length: 20 }).forEach(() => {
   products.push(createRandomProducts());
 });
+console.log(products);

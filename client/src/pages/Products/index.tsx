@@ -7,7 +7,7 @@ import './style.css';
 const Products: FC = () => (
   <div className="products-page">
     <Filters />
-    <div>
+    <div style={{ minWidth: '80%' }}>
       <ItemsSummary />
       <ProductsContainer />
     </div>
