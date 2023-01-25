@@ -15,14 +15,19 @@ const ItemsSummary : FC = () => {
     >
       <p>
         Showing
-        {context?.data?.count}
-        {' '}
+        {` ${context?.data?.count} ` || ` ${0} `}
+
         of
-        {context?.data?.totalNumberOfItems}
-        {' '}
+
+        {` ${context?.data?.totalNumberOfItems} ` || 0}
+
         results
       </p>
-      <p>Total Price: 3250$</p>
+      <p>
+        Total Price:
+        {' '}
+        {` ${context?.data?.totalPrice} ` || 0}
+      </p>
     </div>
   );
 };
