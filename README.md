@@ -6,4 +6,4 @@
 - in case there is data returned from the cache, check if the cacheed price, offest and order by filter equal the requested price, offest, and order by.
 - if they are equal, check if the cached categories are the same selected categories.
 - if true, display the data, "because that means the user requested the same data again".
-- if false, invoke sendAPIRequest() function and store the returned data in the cache with the selected filters and categories.
+- if false, invoke sendAPIRequest() function and store the returned data in the cache and all selected filters and categories.
