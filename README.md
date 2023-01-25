@@ -1,9 +1,9 @@
 # Store Page
 ## Pseudocode to explain cache implementation feature
-- Return the data from the cache, or return undefined value if there is no data.
-- if undefined invoke sendAPIRequest() function to get the data.
-- when the promise of the request resolved and the the data returned successfully, store them in the cache with the value of the filters and the sort property.
+- Define a cache object that will store the data, filters, and sort property.
+- Define a function getDataFromCache that return array of cache object, or return undefined value if there is no data.
+- if undefined invoke sendAPIRequest() and update the cache with the new data and selected filters and categories.
 - in case there is data returned from the cache, check if the cacheed price, offest and order by filter equal the requested price, offest, and order by.
 - if they are equal, check if the cached categories are the same selected categories.
-- if true, display the data, "because that means the user requested the same data again".
-- if false, invoke sendAPIRequest() function and store the returned data in the cache and all selected filters and categories.
+- if true, display the data to the use.
+- if false, invoke sendAPIRequest() function and updated the data.
