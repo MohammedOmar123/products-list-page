@@ -1,6 +1,6 @@
 import { FC, useContext, useState } from 'react';
 
-import { Pagination } from 'antd';
+import { Col, Pagination, Row } from 'antd/lib';
 
 import ProductCard from '../Card';
 import Loading from '../Loading';
@@ -26,26 +26,39 @@ const ProductsContainer: FC = () => {
 
   return (
     <div>
-      <div className="products-container">
-        {
-          context?.products?.length
-            ? context?.products?.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))
-            : <div style={{ height: '80Vh' }}><p> No data Matched </p></div>
-        }
+      <div
+        className="products-container"
+      >
+        {context?.products?.length ? (
+          <Row gutter={[24, 24]}>
+            {context?.products?.map((product) => (
+              <Col
+                xs={24}
+                sm={16}
+                md={12}
+                lg={8}
+                xl={6}
+                key={product.id}
+              >
+                <ProductCard product={product} />
+              </Col>
+            ))}
+          </Row>
+        )
+          : <div style={{ height: '80Vh' }}><p> No data Matched </p></div>}
 
       </div>
       {/** Page size is the number of items per page */}
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Pagination
-          total={context?.data?.totalNumberOfItems || context?.count}
-          pageSize={9}
-          onChange={handleChange}
-          simple
-          current={prevPage}
-        />
-      </div>
+      <Pagination
+        total={context?.data?.totalNumberOfItems || context?.count}
+        pageSize={9}
+        onChange={handleChange}
+        simple
+        current={prevPage}
+        style={{
+          margin: '20px auto', display: 'block', width: '250px',
+        }}
+      />
     </div>
   );
 };

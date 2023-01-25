@@ -1,8 +1,6 @@
 .products-container{
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
   width: 90%;
   margin: 20px auto;
-
+  gap: 10px;
+  min-width: 300px;
 }

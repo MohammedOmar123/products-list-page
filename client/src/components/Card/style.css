@@ -1,23 +1,11 @@
-.card {
-  width: calc(100% / 3);
-  min-width: 230px;
-  max-width: 320px;
-  height: 410px;
-  border-radius: 5px;
-  margin: 15px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;}
 
-.card img {
-  width: 100%;
-  max-width: 320px;
-  height: 250px;
-  margin: 0 auto;
-  object-fit: fill;
-  border-radius: 8px;
-  background-color: #ececec;
+.price-category{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.product-name {
-  font-family:Georgia, 'Times New Roman', Times, serif;
-  font-size: 18px;
+.price-category p{
+  font-weight: 500;
+  font-size: 16px;
 }

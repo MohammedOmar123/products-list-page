@@ -1,35 +1,38 @@
 import { FC } from 'react';
-
-import { Rate } from 'antd';
+import { Card as AntCard, Tag } from 'antd/lib';
 
 import { IProduct } from '../../interfaces/IProducts';
-import Image from '../../asset/images/productHealth.jpg';
 
 import './style.css';
 
+const { Meta } = AntCard;
+
 const Card:FC<{ product:IProduct }> = ({ product }) => (
-  <div className="card">
-    <img src={product.image} alt="product" onError={(e) => { e.currentTarget.src = Image; }} />
-    <div>
-      <p className="product-name" style={{ textAlign: 'center' }}>
-        {product.name}
+  <AntCard
+    hoverable
+    style={{ width: 235 }}
+    cover={(
+      <img
+        src={product.image}
+        alt={product.name}
+        style={{
+          objectFit: 'contain',
+          width: 235,
+          height: '180px',
+        }}
+      />
+)}
+  >
+    <Meta title={product.name} description="www.instagram.com" />
+    <div className="price-category">
+      <p className="price">
+        {product.price}
+        $
       </p>
-      <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 25px' }}>
-        <p>
-          {product.price}
-          $
-        </p>
-        <p>{product.category}</p>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Rate
-          style={{ display: 'block', color: '#3577f0', fontSize: '16px' }}
-          disabled
-          defaultValue={4}
-        />
-      </div>
+      <Tag color="blue">{product.category}</Tag>
+
     </div>
-  </div>
+  </AntCard>
 );
 
 export default Card;

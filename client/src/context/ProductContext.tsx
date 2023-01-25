@@ -69,9 +69,9 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
           categories,
         );
 
-        if (data && storedItems.products) {
+        if (storedItems && storedItems.products) {
           setProducts(storedItems.products);
-          setData(data);
+          setData(storedItems);
           setIsLoading(false);
         } else {
           // if there is no data in the cache.

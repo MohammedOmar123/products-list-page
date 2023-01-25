@@ -12,7 +12,6 @@ export class ProductsService {
   async findAll(dto: QueryDto) {
     this.number += 1;
     const { offset } = dto;
-    console.log(dto);
     const where = {};
     if (dto.category) {
       where['category'] = dto.category.split(',');

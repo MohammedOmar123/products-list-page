@@ -1,13 +1,17 @@
-import { FC, useContext } from 'react';
+import { FC, useContext, useState } from 'react';
 
-import { Checkbox, Select } from 'antd';
+import { Checkbox, Select, Layout } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 
 import { ProductContext } from '../../context/ProductContext';
 import { categories } from '../../data/FakeData';
 import './style.css';
 
+const { Sider } = Layout;
+
 const Filters: FC = () => {
+  const [collapsed, setCollapsed] = useState(false);
+
   const context = useContext(ProductContext);
   const onChange = (e: CheckboxChangeEvent): void => {
     const { name } = e.target;
@@ -18,70 +22,90 @@ const Filters: FC = () => {
     }
   };
 
-  const handleOrderByPrice = (price: string) : void => {
+  const handleOrderByPrice = (price: string): void => {
     context?.setOrderBy((prev) => ({ ...prev, price }));
   };
 
-  const handleOrderByName = (name: string) : void => {
+  const handleOrderByName = (name: string): void => {
     context?.setOrderBy((prev) => ({ ...prev, name }));
   };
 
   return (
-    <div className="filters-container">
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px ' }}>
-        <h2 className="filters">Categories</h2>
-        {
-          categories.map((category) => (
-            <div key={category.id}>
-              <Checkbox
-                name={category.name}
-                onChange={onChange}
-              >
-                {category.name}
-              </Checkbox>
+
+    <Layout style={{ minHeight: '100vh', color: '#eee' }}>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
+        style={{ overflow: 'hidden' }}
+        width={230}
+      >
+        <div style={{ height: 32, margin: 16, background: 'rgba(255, 255, 255, 0.2)' }} />
+        <div className="filters-container">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px ' }}>
+            <h2 className="filters">Categories</h2>
+            {
+              categories.map((category) => (
+                <div key={category.id}>
+                  <Checkbox
+                    name={category.name}
+                    onChange={onChange}
+                    style={{ color: '#eee' }}
+                  >
+                    {category.name}
+                  </Checkbox>
+                </div>
+              ))
+            }
+          </div>
+          <div>
+            <h3 className="filters">Sort by</h3>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-around',
+              width: '200px',
+            }}
+            >
+              <p>Price</p>
+              <Select
+                defaultValue=""
+                style={{ width: '150px' }}
+                onChange={handleOrderByPrice}
+                options={[
+                  { value: 'ASC', label: 'Lowest To Highest' },
+                  { value: 'DESC', label: 'Highest To Lowest' },
+                  { value: '', label: '' },
+                ]}
+              />
             </div>
-          ))
-}
-      </div>
-      <div>
-        <h3 className="filters">Sort by</h3>
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-around',
-        }}
-        >
-          <h4>Price</h4>
-          <Select
-            defaultValue=""
-            style={{ width: 185 }}
-            onChange={handleOrderByPrice}
-            options={[
-              { value: 'ASC', label: 'From Lowest To Highest' },
-              { value: 'DESC', label: 'From Highest To Lowest' },
-              { value: '', label: '' },
 
-            ]}
-          />
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-around',
+              width: '200px',
+            }}
+            >
+              <p>Name</p>
+              <Select
+                defaultValue=""
+                style={{ width: '150px' }}
+                onChange={handleOrderByName}
+                options={[
+                  { value: 'ASC', label: 'A - Z' },
+                  { value: 'DESC', label: 'Z - A' },
+                  { value: '', label: '' },
+
+                ]}
+              />
+            </div>
+
+          </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <h4>Name</h4>
-          <Select
-            defaultValue=""
-            style={{ width: 185 }}
-            onChange={handleOrderByName}
-            options={[
-              { value: 'ASC', label: 'A - Z' },
-              { value: 'DESC', label: 'Z - A' },
-              { value: '', label: '' },
-
-            ]}
-          />
-        </div>
-
-      </div>
-    </div>
+      </Sider>
+    </Layout>
   );
 };
 export default Filters;
