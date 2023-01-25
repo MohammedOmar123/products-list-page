@@ -16,5 +16,7 @@
 - Postgres
 - Sequalize
 ## How to install the application ? 
-- cd server and client folders and run npm i command
-- check the .example.env file and add your database and all required data.
+- cd server and client folders and run npm i command.
+- Check the .example.env file and add your database and all required data.
+- Inside the sever folder run this command > npm run seed:up to add fake data to the database.
+- And this command > npm run start:dev to run the server.
